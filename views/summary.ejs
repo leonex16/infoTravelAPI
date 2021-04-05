@@ -1,0 +1,201 @@
+<html lang="es">
+  <head>
+    <%- include('./components/head', title='Resumen Compra') %>
+  </head>
+  <body>
+    <%- include('./components/header') %>
+    <main class="">
+      <article class="text-center my-2">
+        <header class="my-1">
+          <h1 class="fs-3">Resumen de tu compra</h1>
+        </header>
+        <table class="table">
+          <!-- TRAVEL INFORMATION -->
+          <tr class="text-center">
+            <th class="fs-4" colspan="2">Información del viaje</th>
+          </tr>
+          <!-- DEPART -->
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Ida</th>
+          </tr>
+          <tr class="text-center">
+            <td class=" table-active" colspan="2">Salida</td>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.climbStopDepart}, ${data.cityFrom}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class=" table-active" colspan="2">Llegada</td>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.descentStopDepart}, ${data.cityTo}` %></td>
+          </tr>
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Cuando</th>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.goDate.toLocaleString('en-NZ')}` %></td>
+          </tr>
+          <!-- RETURN -->
+          <% if(data.backDate){ %>
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Vuelta</th>
+          </tr>
+          <tr class="text-center">
+            <td class=" table-active" colspan="2">Salida</td>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.climbStopReturn}, ${data.cityTo}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class=" table-active" colspan="2">Llegada</td>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.descentStopReturn}, ${data.cityFrom}` %></td>
+          </tr>
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Cuando</th>
+          </tr>
+          <tr class="text-center">
+            <td class="" colspan="2"><%= `${data.backDate.toLocaleString('en-NZ')}` %></td>
+          </tr>
+          <% } %>
+          <!-- PASSENGERS INFORMATION -->
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Información Pasajeros</th>
+          </tr>
+          <% for( let i = 0; i < data.passengers.length; i++ ) { %>
+            <tr class="text-center">
+              <th class=" table-active" colspan="2"><%= `Pasajero ${i + 1}` %></th>
+            </tr>
+            <tr class="text-center">
+              <td class="">Rut</td>
+              <td class=""><%= data.passengers[i].rut %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Nombre</td>
+              <td class="text-capitalize">
+                <%= `${data.passengers[i].name} ${data.passengers[i].lastName}` %>
+              </td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Teléfono Personal</td>
+              <td class=""><%= data.passengers[i].personalPhone %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Teléfono de Emergencia</td>
+              <td class=""><%= data.passengers[i].emergencyPhone %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Correo Electrónico</td>
+              <td class=""><%= data.passengers[i].email %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Nacionalidad</td>
+              <td class="text-capitalize"><%= data.passengers[i].nacionality %></td>
+            </tr>
+            <% if(!data.backDate) { %>
+              <tr class="text-center">
+                <td class="">Número de Asiento</td>
+                <td class="fw-bold"><%= data.seatsDepart[i].numberSeat %></td>
+              </tr>
+            <% }else { %>  
+              <tr class="text-center">
+                <th class="fs-4 table-active" colspan="2">Números de Asientos</th>
+              </tr>
+              <tr class="text-center">
+                <th class="table-active">Ida</th>
+                <th class="table-active">Vuelta</th>
+              </tr>
+              <tr class="text-center">
+                <td class="fw-bold"><%= data.seatsDepart[i].numberSeat %></td>
+                <td class="fw-bold"><%= data.seatsReturn[i].numberSeat %></td>
+              </tr>
+            <% } %>  
+          <% } %>
+          <!-- SUMMARY PAID AMOUNT DEPART -->
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">Monto Cancelado Ida</th>
+          </tr>
+          <tr class="text-center">
+            <td class="">Precio Normal</td>
+            <td class=""><%= `$${data.beforePriceDepart.toLocaleString('es-CL')}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class="">Descuento</td>
+            <td class=""><%= `$${data.dctoDepart.toLocaleString('es-CL')}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class="">Precio Dcto Aplicado</td>
+            <td class=""><%= `$${data.afterPriceDepart.toLocaleString('es-CL')}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class="">Cantidad Pasajeros</td>
+            <td class=""><%= `${data.passengers.length}` %></td>
+          </tr>
+          <tr class="text-center">
+            <td class="">Sub-Total</td>
+            <td class="">
+              <%= `$${ (data.afterPriceDepart * data.passengers.length).toLocaleString('es-CL') }` %>
+            </td>
+          </tr>
+          <!-- SUMMARY PAID AMOUNT RETURN -->
+          <% if(data.backDate){ %>
+          
+            <tr class="text-center">
+              <th class="fs-5 table-active" colspan="2">Monto Cancelado Vuelta</th>
+            </tr>
+            <tr class="text-center">
+              <td class="">Precio Normal</td>
+              <td class=""><%= `$${data.beforePriceReturn.toLocaleString('es-CL')}` %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Descuento</td>
+              <td class=""><%= `$${data.dctoReturn.toLocaleString('es-CL')}` %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Precio Dcto Aplicado</td>
+              <td class=""><%= `$${data.afterPriceReturn.toLocaleString('es-CL')}` %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Cantidad Pasajeros</td>
+              <td class=""><%= `${data.passengers.length}` %></td>
+            </tr>
+            <tr class="text-center">
+              <td class="">Sub-Total</td>
+              <td class="">
+                <%= `$${ (data.afterPriceReturn * data.passengers.length).toLocaleString('es-CL') }` %>
+              </td>
+            </tr>
+          <% } %> 
+          <!-- TOTAL -->
+          <tr class="text-center">
+            <th class="fs-5 table-active" colspan="2">TOTAL</th>
+          </tr>
+          <tr class="">
+            <td class="text-center" colspan="2">
+            <% if(data.backDate){ %>
+              <%= `$${ ( (data.afterPriceDepart * data.passengers.length) + (data.afterPriceReturn * data.passengers.length) ) }` %> 
+            <% }else{ %>
+              <%= `$${ (data.afterPriceDepart * data.passengers.length) }` %> 
+            <% } %> 
+            </td>
+          </tr>
+        </table>
+        <div class="">
+          <button class="btn btn-success w-75 text-center">
+            <a href="/" class="fw-bold text-white text-decoration-none">¡Buen viaje!</a>
+          </button>
+        </div>
+      </article>
+    </main>
+    <%- include('./components/footer') %>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="sonic.js"></script>
+    <script src="src/js/script.js" type="module"></script>
+  </body>
+</html>

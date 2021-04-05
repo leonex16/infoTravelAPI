@@ -1,0 +1,2 @@
+let app = require('../App.js');
+app.listen(app.get('port'), () => console.log(`localhost:${app.get('port')}`));

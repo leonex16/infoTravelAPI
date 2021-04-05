@@ -1,0 +1,30 @@
+<html lang="es">
+  <head>
+    <%- include('./components/head', title='Compra de una forma sencilla los pasajes para tu próximo viaje') %>
+  </head>
+  <body class="d-flex flex-column vh-100">
+    <%- include('./components/header') %>
+    <main class="container flex-grow-1">
+      <!-- PART 1 -->
+      <%- include('./travelForm') %>
+      <!-- PART 2 -->
+      <%- include('./ticketAvailabilityDepart') %>
+      <!-- OPTIONAL PART -->
+      <%- include('./ticketAvailabilityReturn') %>
+      <!-- PART 3 -->
+      <%- include('./dataPassenger') %>
+      <!-- PART 4 -->
+      <%- include('./seatsSelectorDepart') %>
+      <!-- OPTIONAL PART -->
+      <%- include('./seatsSelectorReturn') %>
+    </main>
+    <%- include('./components/footer') %>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="sonic.js"></script>
+    <script src="src/js/script.js" type="module"></script>
+  </body>
+</html>

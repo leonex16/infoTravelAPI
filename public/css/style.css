@@ -1,0 +1,4 @@
+.transition-opacity{
+  transition: opacity .2s linear;
+  opacity: 0;
+}

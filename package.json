@@ -1,0 +1,23 @@
+{
+  "name": "infotravel-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon bin/www"
+  },
+  "author": "Leonel Espinoza",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-react-views": "^0.11.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "ejs": "^3.1.6",
+    "morgan": "^1.10.0"
+  }
+}
